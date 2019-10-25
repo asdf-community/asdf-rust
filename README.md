@@ -10,6 +10,8 @@ Rust plugin for asdf version manager
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![License](https://img.shields.io/github/license/asdf-community/asdf-rust?color=brightgreen)](https://github.com/asdf-community/asdf-rust/blob/master/LICENSE)
 
+This plugin is **_NOT_** a wrapper of rustup.
+
 ## Installation
 
 ```bash
