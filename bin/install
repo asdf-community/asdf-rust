@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+#
+# Copyright 2019 asdf-rust authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+set -eo pipefail
+
+fail() {
+  echo -e "\e[31mFail:\e[m $* 😭"
+  exit 1
+}
+
+install_rust() {
+  local install_type=$1
+  local version=$2
+  local install_path=$3
+
+  if [ "$install_type" != "version" ]; then
+    fail "asdf-ocaml supports release installs only"
+  fi
+
+  local platform
+
+  case "$OSTYPE" in
+    darwin*) platform="apple-darwin" ;;
+    linux*) platform="unknown-linux-gnu" ;;
+    openbsd*) platform="unknown-freebsd" ;;
+    netbsd*) platform="unknown-netbsd" ;;
+    *) fail "Unsupported platform" ;;
+  esac
+
+  local architecture
+
+  case "$(uname -m)" in
+    x86_64 | x86-64 | x64 | amd64) architecture="x86_64" ;;
+    i386 | i486 | i686 | i786 | x86) architecture="i686" ;;
+    aarch64) architecture="aarch64" ;;
+    xscale | armv6l | arm) architecture="arm" ;;
+    armv7l | armv8l) architecture="armv7" ;;
+    *) fail "Unsupported architecture" ;;
+  esac
+
+  local download_url="https://static.rust-lang.org/dist/rust-${version}-${architecture}-${platform}.tar.gz"
+  local tmp_download_dir
+  tmp_download_dir=$(mktemp -d -t rust_tmp_XXXXXX)
+  local source_path="${tmp_download_dir}/rust.tar.gz"
+  local distination_path="${tmp_download_dir}/dist"
+
+  (
+    echo "∗ Downloading..."
+    curl --silent --location --create-dirs --output "$source_path" "$download_url" || fail "Could not download rust $version"
+    mkdir -p "$distination_path"
+    tar zxf "$source_path" -C "$distination_path" --strip-components=1 || fail "Could not uncompress"
+
+    echo "∗ Installing..."
+    cd "$distination_path"
+    ./install.sh --prefix="$install_path" || fail "Could not install"
+
+    rm -rf "$tmp_download_dir"
+
+    echo "The installation was successful!"
+  ) || (
+    rm -rf "$install_path"
+    fail "An error occurred"
+  )
+}
+
+install_rust "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
