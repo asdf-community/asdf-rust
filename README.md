@@ -1,6 +1,6 @@
 <div align="center">
 <h1>asdf-rust 📦</h1>
-Rust plugin for asdf version manager
+<span><a href="https://www.rust-lang.org">Rust</a> plugin for asdf version manager</span>
 </div>
 <hr />
 
