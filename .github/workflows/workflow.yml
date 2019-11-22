@@ -1,13 +1,16 @@
 name: Main workflow
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 5"
 
 jobs:
   build:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
-        rust: [1.26.1, 1.38.0]
 
     runs-on: ${{ matrix.os }}
 
@@ -22,9 +25,9 @@ jobs:
         run: |
           . $HOME/asdf/asdf.sh
           asdf plugin-add rust $GITHUB_WORKSPACE
-          asdf install rust ${{ matrix.rust }}
-          asdf global rust ${{ matrix.rust }}
-          rustc --version
+          asdf install rust latest
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: macOS-latest
@@ -37,12 +40,12 @@ jobs:
         run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
 
       - name: Test plugin
-        env:
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           . $HOME/asdf/asdf.sh
           asdf plugin-add rust $GITHUB_WORKSPACE
           bats test
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
