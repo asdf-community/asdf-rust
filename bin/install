@@ -28,7 +28,7 @@ install_rust() {
   local install_path=$3
 
   if [ "$install_type" != "version" ]; then
-    fail "asdf-ocaml supports release installs only"
+    fail "asdf-rust supports release installs only"
   fi
 
   local platform
