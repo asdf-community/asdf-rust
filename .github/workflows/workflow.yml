@@ -3,10 +3,12 @@ name: Main workflow
 on:
   push:
     paths-ignore:
-      - '**.md'
+      - "**.md"
+      - ".all-contributorsrc"
   pull_request:
     paths-ignore:
-      - '**.md'
+      - "**.md"
+      - ".all-contributorsrc"
   schedule:
     - cron: "0 0 * * 5"
 
@@ -20,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install asdf
         run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
@@ -53,7 +55,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install asdf
         run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
@@ -71,7 +73,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Run ShellCheck
         run: shellcheck bin/*
@@ -81,7 +83,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install shfmt
         run: brew install shfmt
