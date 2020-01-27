@@ -49,6 +49,7 @@ install_rust() {
     aarch64) architecture="aarch64" ;;
     xscale | armv6l | arm) architecture="arm" ;;
     armv7l | armv8l) architecture="armv7" ;;
+    ppc64le) architecture="powerpc64le" ;;
     *) fail "Unsupported architecture" ;;
   esac
 
