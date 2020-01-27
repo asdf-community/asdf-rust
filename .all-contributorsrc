@@ -34,6 +34,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "joneslee85",
+      "name": "Trung Lê",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/135605?v=4",
+      "profile": "http://ruby-journal.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
