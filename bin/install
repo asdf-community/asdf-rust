@@ -31,9 +31,9 @@ install_rust() {
     fail "asdf-rust supports release installs only"
   fi
 
-  local install_extra_flags=''
+  local install_without_opt=''
   if [ -n "${ASDF_RUST_IGNORE_COMPONENTS}" ]; then
-    install_extra_flags="--without=${ASDF_RUST_IGNORE_COMPONENTS} $install_extra_flags"
+    install_without_opt="--without=${ASDF_RUST_IGNORE_COMPONENTS}"
   fi
 
   local platform
@@ -72,7 +72,7 @@ install_rust() {
 
     echo "∗ Installing..."
     cd "$distination_path"
-    ./install.sh --prefix="$install_path" $install_extra_flags || fail "Could not install"
+    ./install.sh --prefix="$install_path" "$install_without_opt" || fail "Could not install"
 
     rm -rf "$tmp_download_dir"
 
