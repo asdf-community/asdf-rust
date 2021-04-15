@@ -19,9 +19,13 @@ install & manage versions.
 
 ## Configuration
 
-By default, `asdf-rust` installs rust via [Standalone installers](https://forge.rust-lang.org/infra/other-installation-methods.html) with all included components.
+By default, `asdf-rust` installs rust via
+[Standalone installers](https://forge.rust-lang.org/infra/other-installation-methods.html)
+with all included components.
 
-That include docs, which may easily use around ~50% of total installation. For this reason,  environment variable `RUST_WITHOUT` exists, which takes comma-separated list of components NOT to install:
+That include docs, which may easily use around ~50% of total installation. For
+this reason, environment variable `RUST_WITHOUT` exists, which takes
+comma-separated list of components NOT to install:
 
 ```sh
 RUST_WITHOUT=rust-docs,rust-other-component asdf install rust 1.51.0
