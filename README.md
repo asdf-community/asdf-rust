@@ -1,7 +1,6 @@
 # asdf-rust
 
-[Rust](https://www.rust-lang.org) plugin for asdf version
-manager
+[Rust](https://www.rust-lang.org) plugin for asdf version manager
 
 ## Build History
 
