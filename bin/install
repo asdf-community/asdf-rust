@@ -37,7 +37,7 @@ install_rust() {
   case "$(uname -m)" in
     x86_64 | x86-64 | x64 | amd64) architecture="x86_64" ;;
     i386 | i486 | i686 | i786 | x86) architecture="i686" ;;
-    aarch64) architecture="aarch64" ;;
+    aarch64 | arm64) architecture="aarch64" ;;
     xscale | armv6l | arm) architecture="arm" ;;
     armv7l | armv8l) architecture="armv7" ;;
     ppc64le) architecture="powerpc64le" ;;
