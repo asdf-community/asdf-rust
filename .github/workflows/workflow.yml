@@ -34,7 +34,11 @@ jobs:
         uses: asdf-vm/actions/setup@v1
 
       - name: Install bats-core
-        run: brew install bats-core
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get update
+          sudo apt install bats
+
 
       - name: Test plugin
         run: |
@@ -51,7 +55,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install ShellCheck
-        run: brew install shellcheck
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get update
+          sudo apt install shellcheck
 
       - name: Run ShellCheck
         run: make lint
@@ -64,7 +71,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install shfmt
-        run: brew install shfmt
+        run: curl -sS https://webi.sh/shfmt | sh
 
       - name: Run shfmt
         run: make fmt-check
