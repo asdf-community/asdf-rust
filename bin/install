@@ -26,7 +26,7 @@ install_rust() {
 
   case "$OSTYPE" in
     darwin*) platform="apple-darwin" ;;
-    linux*) platform="unknown-linux-gnu" ;;
+    linux*) platform="unknown-linux-musl" ;;
     openbsd*) platform="unknown-freebsd" ;;
     netbsd*) platform="unknown-netbsd" ;;
     *) fail "Unsupported platform" ;;
