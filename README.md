@@ -12,6 +12,15 @@
 asdf plugin-add rust https://github.com/asdf-community/asdf-rust.git
 ```
 
+### Nightly builds
+
+You can use the nightly build by setting the rust version to `nightly`. However, in order to update the nightly version you'll need to remove the current nightly version and install it again:
+
+```shell
+asdf uninstall rust nightly
+asdf install rust nightly
+```
+
 ## Usage
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to
