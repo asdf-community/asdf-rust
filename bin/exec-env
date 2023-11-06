@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+[[ -z $CARGO_HOME ]] || export CARGO_HOME=$ASDF_INSTALL_PATH
