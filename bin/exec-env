@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 if [ "${CARGO_HOME:-}" = "" ]; then
-  export CARGO_HOME=$ASDF_INSTALL_PATH
+  export CARGO_HOME="$ASDF_INSTALL_PATH"
 fi
