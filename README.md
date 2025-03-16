@@ -34,6 +34,12 @@ RUST_WITHOUT=rust-docs,rust-other-component asdf install rust 1.51.0
 export RUST_WITHOUT=rust-docs
 ```
 
+Also, the Standalone installers do not install source code, which may cause problems in some development environments. If you need the source code, please use the environment variable `RUST_SOURCE` to perform an additional installation.
+
+```sh
+RUST_SOURCE=1 asdf install rust 1.51.0
+```
+
 ## License
 
 Licensed under the
