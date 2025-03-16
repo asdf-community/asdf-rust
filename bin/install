@@ -69,4 +69,21 @@ install_rust() {
   )
 }
 
+install_default_rust_packages() {
+  local packages_file="${ASDF_RUST_DEFAULT_PACKAGES_FILE:-$HOME/.default-rust-packages}"
+
+  if [ -f "$packages_file" ]; then
+    echo -ne "\nInstalling default rust packages..."
+    while read -r package; do
+      echo -ne "\nInstalling rust package $package..."
+      echo "Pouet : $ASDF_INSTALL_PATH"
+      PATH="$ASDF_INSTALL_PATH/bin:$PATH" cargo install -f --locked "$package" --root "$ASDF_INSTALL_PATH/.cargo"
+    done <"$packages_file"
+    for binary in "$ASDF_INSTALL_PATH/.cargo/bin"/*; do
+      ln -s "$binary" "$ASDF_INSTALL_PATH/bin/$(basename "$binary")"
+    done
+  fi
+}
+
 install_rust "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
+install_default_rust_packages
