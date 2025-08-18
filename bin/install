@@ -45,9 +45,11 @@ install_rust() {
   esac
 
   local download_url="https://static.rust-lang.org/dist/rust-${version}-${architecture}-${platform}.tar.gz"
+  local download_src_url="https://static.rust-lang.org/dist/rustc-${version}-src.tar.xz"
   local tmp_download_dir
   tmp_download_dir=$(mktemp -d -t rust_tmp_XXXXXX)
   local source_path="${tmp_download_dir}/rust.tar.gz"
+  local source_src_path="${tmp_download_dir}/rust-src.tar.gz"
   local distination_path="${tmp_download_dir}/dist"
 
   (
@@ -59,6 +61,17 @@ install_rust() {
     echo "∗ Installing..."
     cd "$distination_path"
     ./install.sh "$configure_options" || fail "Could not install"
+
+    if [ "${RUST_SOURCE}" ]; then
+      echo "RUST_SOURCE is set, download and install source code..."
+      echo "∗ Downloading Source Code..."
+      curl --silent --location --create-dirs --output "$source_src_path" "$download_src_url" || fail "Could not download rust source code $version"
+
+      echo "∗ Installing Source Code..."
+      local rustlib_src_path="$install_path/lib/rustlib/src/rust"
+      mkdir -p "$rustlib_src_path"
+      tar zxf "$source_src_path" -C "$rustlib_src_path" --strip-components=1 || fail "Could not uncompress source code"
+    fi
 
     rm -rf "$tmp_download_dir"
 
